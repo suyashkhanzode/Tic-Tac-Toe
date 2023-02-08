@@ -1,0 +1,162 @@
+#include<iostream> 
+#include<ctime>
+
+using namespace std;
+
+void drawboard(char *sp);
+void plmov(char *sp,char pl);
+void clmpv(char *sp,char cl);
+bool chewin(char *sp,char pl,char cl);
+bool chektie(char *sp);
+
+int main()
+{
+    char sp[9] = {' ',' ',' ',' ',' ',' ',' ',' ',' ',};
+    char pl = 'X';
+    char cl = 'O';
+    bool run = true;
+    drawboard(sp);
+    while (run)
+    {
+      plmov(sp,pl);
+      drawboard(sp);
+      if (chewin(sp,pl,cl))
+      {
+        run = false;
+        break;
+      }
+      else if ( chektie(sp))
+      {
+         run = false;
+        break;
+      }
+      
+      
+      clmpv(sp,cl);
+      drawboard(sp);
+      if (chewin(sp,pl,cl))
+      {
+        run = false;
+        break;
+      }
+       else if ( chektie(sp))
+      {
+         run = false;
+        break;
+      }
+      
+      
+    }
+    
+
+    return 0;
+}
+void drawboard(char *sp)
+{
+    cout<<"     |     | \n";
+    cout<<"  "<<sp[0]<<"  |  "<<sp[1]<<"  |  "<<sp[2]<<"\n";
+    cout<<"_____|_____|______\n";
+    cout<<"     |     | \n";
+    cout<<"  "<<sp[3]<<"  |  "<<sp[4]<<"  |  "<<sp[5]<<"\n";
+    cout<<"_____|_____|______\n";
+    cout<<"     |     | \n";
+    cout<<"  "<<sp[6]<<"  |  "<<sp[7]<<"  |  "<<sp[8]<<"\n";
+    
+    
+}
+void plmov(char *sp,char pl)
+{
+    int n;
+do
+{
+  cout <<"\n Enter a spot to move the marker(1-9)\n";
+  cin>>n;
+  n--;
+  if (sp[n] == ' ')
+        
+  {
+   sp[n] = pl;
+   break;
+  }
+  
+} while ( !n > 0|| !n <8);
+
+
+}
+ void clmpv(char *sp,char cl)
+{
+    srand(time(NULL));
+     int n;
+      cout <<"\n Computer has  enter a spot to \n";
+     while (true)
+     {
+      n = rand() % 9;
+      if (sp[n] == ' ')
+      {
+       sp[n] = cl;
+       break;
+      }
+      
+     }
+     
+
+
+
+}
+bool chewin(char *sp,char pl,char cl)
+{
+
+  if ((sp[0] != ' ') && (sp[0] == sp[1]) && (sp[1]==sp[2]))
+  {
+    sp[0] == pl ? cout<<"\nYou Win!"  : cout<<"\nYou Lose!";
+  }
+  else if ((sp[3] != ' ') && (sp[3] == sp[4]) && (sp[4]==sp[5]))
+  {
+    sp[3] == pl ? cout<<"\nYou Win!" : cout<<"\nYou Lose!";
+  }
+  else if ((sp[6] != ' ') && (sp[6] == sp[7]) && (sp[7]==sp[8]))
+  {
+    sp[6] == pl ? cout<<"\nYou Win!" : cout<<"\nYou Lose!";
+  }
+  else if ((sp[0] != ' ') && (sp[0] == sp[3]) && (sp[3]==sp[6]))
+  {
+    sp[0] == pl ? cout<<"\nYou Win!" : cout<<"\nYou Lose!";
+  }
+  else if ((sp[1] != ' ') && (sp[1] == sp[4]) && (sp[4]==sp[7]))
+  {
+    sp[1] == pl ? cout<<"\nYou Win!" : cout<<"\nYou Lose!";
+  }
+  else if ((sp[2] != ' ') && (sp[2] == sp[5]) && (sp[5]==sp[8]))
+  {
+    sp[2] == pl ? cout<<"\nYou Win!" : cout<<"\nYou Lose!";
+  }
+  else if ((sp[0] != ' ') && (sp[0] == sp[4]) && (sp[4]==sp[8]))
+  {
+    sp[0] == pl ? cout<<"\nYou Win!" : cout<<"\nYou Lose!";
+  }
+  else if ((sp[2] != ' ') && (sp[2] == sp[4]) && (sp[4]==sp[6]))
+  {
+    sp[2] == pl ? cout<<"\nYou Win!" : cout<<"\nYou Lose!";
+  }
+  else{
+    return false;
+  }
+  
+
+return true;
+
+}
+bool chektie(char *sp)
+{
+for (int i = 0; i < 9; i++)
+{
+  if (sp[i] == ' ')
+  {
+   return false;
+  }
+  
+}
+ cout << " It is Tigh";
+}
+
+
